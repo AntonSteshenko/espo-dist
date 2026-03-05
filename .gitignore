@@ -1,0 +1,16 @@
+# Environment variables (contiene credenziali)
+.env
+
+# Volume data
+data/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo

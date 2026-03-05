@@ -1,0 +1,53 @@
+services:
+  espocrm-db:
+    image: mariadb:latest
+    container_name: espocrm-db
+    environment:
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${DB_NAME}
+      MARIADB_USER: ${DB_USER}
+      MARIADB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - espocrm-db:/var/lib/mysql
+    restart: unless-stopped
+
+  espocrm:
+    image: espocrm/espocrm:latest
+    container_name: espocrm
+    environment:
+      ESPOCRM_DATABASE_PLATFORM: Mysql
+      ESPOCRM_DATABASE_HOST: espocrm-db
+      ESPOCRM_DATABASE_PORT: 3306
+      ESPOCRM_DATABASE_NAME: ${DB_NAME}
+      ESPOCRM_DATABASE_USER: ${DB_USER}
+      ESPOCRM_DATABASE_PASSWORD: ${DB_PASSWORD}
+      ESPOCRM_ADMIN_USERNAME: ${ESPOCRM_ADMIN_USERNAME}
+      ESPOCRM_ADMIN_PASSWORD: ${ESPOCRM_ADMIN_PASSWORD}
+      ESPOCRM_SITE_URL: ${ESPOCRM_SITE_URL}
+      ESPOCRM_LANGUAGE: ${ESPOCRM_LANGUAGE:-it_IT}
+      ESPOCRM_TIME_ZONE: ${ESPOCRM_TIME_ZONE:-Europe/Rome}
+    volumes:
+      - espocrm:/var/www/html
+      - ./custom:/var/www/html/custom
+      - ./client/custom:/var/www/html/client/custom
+    ports:
+      - "8080:80"
+    depends_on:
+      - espocrm-db
+    restart: unless-stopped
+
+  espocrm-daemon:
+    image: espocrm/espocrm:latest
+    container_name: espocrm-daemon
+    volumes:
+      - espocrm:/var/www/html
+      - ./custom:/var/www/html/custom
+      - ./client/custom:/var/www/html/client/custom
+    entrypoint: docker-daemon.sh
+    depends_on:
+      - espocrm
+    restart: unless-stopped
+
+volumes:
+  espocrm-db:
+  espocrm:
