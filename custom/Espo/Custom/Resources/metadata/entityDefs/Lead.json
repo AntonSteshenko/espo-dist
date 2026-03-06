@@ -1,9 +1,0 @@
-{
-    "fields": {
-        "cWhatsApp": {
-            "notNull": true,
-            "type": "bool",
-            "isCustom": true
-        }
-    }
-}
