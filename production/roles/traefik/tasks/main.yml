@@ -1,0 +1,28 @@
+---
+- name: Create Traefik directory
+  file:
+    path: "{{ deploy_path }}/traefik"
+    state: directory
+    mode: '0755'
+
+- name: Create acme.json for Let's Encrypt
+  file:
+    path: "{{ deploy_path }}/traefik/acme.json"
+    state: touch
+    mode: '0600'
+
+- name: Create Traefik docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ deploy_path }}/traefik/docker-compose.yml"
+    mode: '0644'
+
+- name: Create Traefik network
+  community.docker.docker_network:
+    name: traefik-public
+    state: present
+
+- name: Start Traefik
+  community.docker.docker_compose_v2:
+    project_src: "{{ deploy_path }}/traefik"
+    state: present

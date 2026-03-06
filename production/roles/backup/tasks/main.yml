@@ -1,0 +1,22 @@
+---
+- name: Create backup directory
+  file:
+    path: "{{ backup_path }}"
+    state: directory
+    mode: '0755'
+  when: backup_enabled
+
+- name: Create backup script
+  template:
+    src: backup.sh.j2
+    dest: "{{ deploy_path }}/backup.sh"
+    mode: '0755'
+  when: backup_enabled
+
+- name: Setup daily backup cron job
+  cron:
+    name: "EspoCRM database backup"
+    hour: "{{ backup_cron_hour }}"
+    minute: "{{ backup_cron_minute }}"
+    job: "{{ deploy_path }}/backup.sh >> {{ backup_path }}/backup.log 2>&1"
+  when: backup_enabled

@@ -1,0 +1,32 @@
+---
+- name: Create EspoCRM directory
+  file:
+    path: "{{ deploy_path }}/espocrm"
+    state: directory
+    mode: '0755'
+
+- name: Create customizations directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop:
+    - "{{ deploy_path }}/espocrm/custom"
+    - "{{ deploy_path }}/espocrm/client/custom"
+
+- name: Create EspoCRM .env file
+  template:
+    src: .env.j2
+    dest: "{{ deploy_path }}/espocrm/.env"
+    mode: '0600'
+
+- name: Create EspoCRM docker-compose.yml
+  template:
+    src: docker-compose.yml.j2
+    dest: "{{ deploy_path }}/espocrm/docker-compose.yml"
+    mode: '0644'
+
+- name: Start EspoCRM
+  community.docker.docker_compose_v2:
+    project_src: "{{ deploy_path }}/espocrm"
+    state: present

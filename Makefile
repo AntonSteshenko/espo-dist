@@ -1,4 +1,4 @@
-.PHONY: up down restart logs shell rebuild clear-cache status clean
+.PHONY: up down restart logs shell rebuild clear-cache status clean upgrade deploy sync
 
 # Avvia l'ambiente di sviluppo
 up:
@@ -11,6 +11,10 @@ down:
 # Riavvia i container
 restart:
 	docker compose restart
+
+# Upgrade
+upgrade:
+	docker compose pull
 
 # Mostra i log (follow mode)
 logs:
@@ -35,3 +39,15 @@ status:
 # Stop e rimuovi volumi (ATTENZIONE: cancella tutti i dati)
 clean:
 	docker compose down --volumes
+
+# ============================================
+# Production Deploy (Ansible)
+# ============================================
+
+# Deploy completo in produzione
+deploy:
+	cd production && ansible-playbook -i inventory/hosts.yml deploy.yml
+
+# Solo sync customizzazioni in produzione
+sync:
+	cd production && ansible-playbook -i inventory/hosts.yml sync.yml

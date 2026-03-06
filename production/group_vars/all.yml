@@ -1,0 +1,26 @@
+# Domain and SSL
+domain: crm.example.com
+letsencrypt_email: admin@example.com
+
+# Database
+db_root_password: "{{ lookup('env', 'DB_ROOT_PASSWORD') | default('change_me_root', true) }}"
+db_name: espocrm
+db_user: espocrm
+db_password: "{{ lookup('env', 'DB_PASSWORD') | default('change_me_db', true) }}"
+
+# EspoCRM
+espocrm_admin_username: admin
+espocrm_admin_password: "{{ lookup('env', 'ESPOCRM_ADMIN_PASSWORD') | default('change_me_admin', true) }}"
+espocrm_language: it_IT
+espocrm_timezone: Europe/Rome
+
+# Paths
+deploy_path: /opt/espocrm
+customizations_src: "{{ playbook_dir }}/../"
+
+# Backup
+backup_enabled: true
+backup_retention_days: 7
+backup_path: /opt/espocrm/backups
+backup_cron_hour: 3
+backup_cron_minute: 0

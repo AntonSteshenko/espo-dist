@@ -1,0 +1,17 @@
+---
+- name: Deploy EspoCRM to Production
+  hosts: all
+  become: yes
+
+  pre_tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+
+  roles:
+    - docker
+    - traefik
+    - espocrm
+    - customizations
+    - backup

@@ -30,6 +30,8 @@ Credenziali: `admin` / `admin123`
 | `make clear-cache` | Pulisce la cache |
 | `make status` | Stato dei container |
 | `make clean` | Stop e rimuovi volumi (cancella dati) |
+| `make deploy` | Deploy completo in produzione |
+| `make sync` | Sync solo customizzazioni in produzione |
 
 ## Struttura Customizzazioni
 
@@ -58,6 +60,10 @@ Modifica `.env` per personalizzare:
 | `ESPOCRM_SITE_URL` | http://localhost:8080 | URL sito |
 | `ESPOCRM_LANGUAGE` | it_IT | Lingua |
 | `ESPOCRM_TIME_ZONE` | Europe/Rome | Timezone |
+
+## Production Deploy
+
+Per il deploy in produzione con Ansible e Traefik, vedi [production/README.md](production/README.md).
 
 ## Documentazione EspoCRM
 
