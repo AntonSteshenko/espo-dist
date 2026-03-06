@@ -1,6 +1,6 @@
-# EspoCRM Development Environment
+# EspoCRM Template
 
-Template per lo sviluppo di customizzazioni EspoCRM con Docker.
+Template per sviluppo e deploy in produzione di customizzazioni EspoCRM.
 
 ## Uso del Template
 
