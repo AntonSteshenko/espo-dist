@@ -30,10 +30,4 @@
   community.docker.docker_container_exec:
     container: espocrm
     command: php rebuild.php
-  register: rebuild_result
-  ignore_errors: yes
-
-- name: Show rebuild result
-  debug:
-    var: rebuild_result.stdout
-  when: rebuild_result is succeeded
+  when: run_rebuild | default(false)

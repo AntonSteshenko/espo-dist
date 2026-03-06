@@ -5,6 +5,13 @@ Deploy automatizzato con Ansible e Traefik.
 ## Requisiti
 
 - Ansible >= 2.14
+```bash
+apt install ansible-core
+```
+- make
+```bash
+apt install make
+```
 - Python 3.x
 
 ## Setup
@@ -12,6 +19,11 @@ Deploy automatizzato con Ansible e Traefik.
 1. Installa le collezioni Ansible:
 ```bash
 ansible-galaxy collection install -r requirements.yml
+```
+
+- creare ssh key
+```bash
+ssh-keygen -t rsa -b 4096 -C "tuo-email"
 ```
 
 2. Configura `inventory/hosts.yml` con i dati del server:

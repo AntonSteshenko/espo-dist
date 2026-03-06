@@ -2,6 +2,8 @@
 - name: Sync customizations to Production
   hosts: all
   become: yes
+  vars:
+    run_rebuild: true
 
   roles:
     - customizations
