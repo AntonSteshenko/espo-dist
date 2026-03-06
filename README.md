@@ -4,20 +4,22 @@ Template per sviluppo e deploy in produzione di customizzazioni EspoCRM.
 
 ## Uso del Template
 
+**Opzione A - Fork (consigliato):**
 ```bash
 # 1. Fork questo repository su GitHub
-
 # 2. Clona il tuo fork
 git clone git@github.com:TUO-USERNAME/espo-dist.git mio-progetto
 cd mio-progetto
+```
 
-# 3. Reinizializza il repository
+**Opzione B - Clone con reinit (repo pulito senza storia):**
+```bash
+git clone git@github.com:ORIGINAL/espo-dist.git mio-progetto
+cd mio-progetto
 rm -rf .git
 git init
 git add .
 git commit -m "init"
-
-# 4. Aggiungi il tuo remote
 git remote add origin git@github.com:TUO-USERNAME/mio-progetto.git
 git push -u origin main
 ```
